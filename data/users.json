@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1",
+        "username": "Eduard",
+        "age": 23,
+        "hobbies": [
+            "Футбол"
+        ]
+    },
+    {
+        "id": "2",
+        "username": "Leha",
+        "age": 34,
+        "hobbies": [
+            "Хоккей"
+        ]
+    },
+    {
+        "id": "3",
+        "username": "Pet9",
+        "age": 44,
+        "hobbies": [
+            "Программирвоание"
+        ]
+    }
+]
