@@ -1,0 +1,27 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ed9n/CRUD-API.git"
+  },
+  "author": "Eduard Rzhautski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ed9n/CRUD-API/issues"
+  },
+  "homepage": "https://github.com/ed9n/CRUD-API#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1"
+  }
+}
