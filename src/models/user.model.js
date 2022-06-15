@@ -1,6 +1,7 @@
 import { createRequire } from "module";
 import { v4 } from 'uuid';
-import { writeToData } from '../../utils/index.js';
+import { writeToData } from '../utils/index.js';
+
 
 const require = createRequire(import.meta.url);
 const users = require('../../data/users.json');

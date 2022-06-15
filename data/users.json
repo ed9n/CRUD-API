@@ -1,1 +1,124 @@
-[{"id":"1","username":"Eduard","age":23,"hobbies":["Футбол"]},{"id":"2","username":"Leha","age":34,"hobbies":["Хоккей"]},{"id":"3","username":"Pet9","age":44,"hobbies":["Программирвоание"]},{"id":"9e172c20-254f-4396-8f5b-54c9ecfe1213","username":"Test","age":34,"hobbies":["Test-Хоккей"]},{"id":"656059d5-bc98-4747-b296-496a74455914","username":"Test","age":34,"hobbies":["Test-Хоккей"]},{"id":"2a982605-f8ac-4f13-8710-43fdd8eeda81","username":"Test","age":34,"hobbies":["Test-Хоккей"]},{"id":"50618432-81d8-4923-ab74-6572e2be11c2","username":"Test","age":34,"hobbies":["Test-Хоккей"]},{"id":"e461b88d-9698-4e5f-a26c-5b594c5d9b1d","username":"Paip","age":101,"hobbies":["Kyker"]},{"id":"97770265-a261-4b90-a014-dadbbcae958d","username":"Paip","age":101,"hobbies":["Kyker"]},{"id":"bf3b18a0-7029-46b9-be8d-70eec5cc79e0","name":"Paip","age":101,"hobbies":["Kyker"]},{"id":"8b65a554-f070-4ca3-b7c1-ad8b01f0012f","name":"Paip","age":101,"hobbies":["Kyker"]},{"id":"e7f7b81f-c0ad-4b84-a19a-45be9f6a4ee0","name":"Paip","age":101,"hobbies":["Kyker"]},{"id":"d0c9bd45-e8f7-4d56-9f35-4d546eb16127","name":"Paip","age":101},{"id":"0bc0e3ef-27b9-4ce6-b14c-d13489f1f1ca","name":"Paip","age":101},{"id":"f0cb4c5c-4c69-4589-ac29-9f11ba2cd8e6","name":"ed9","age":101,"hobbies":["K"]},{"id":"d89d0a5e-d0f3-46b2-8edb-11952f123bb6","name":"ed9","age":101,"hobbies":["K"]}]
+[
+    {
+        "id": "1",
+        "username": "Eduard",
+        "age": 23,
+        "hobbies": [
+            "Футбол"
+        ]
+    },
+    {
+        "id": "2",
+        "username": "Leha",
+        "age": 34,
+        "hobbies": [
+            "Хоккей"
+        ]
+    },
+    {
+        "id": "3",
+        "username": "Pet9",
+        "age": 44,
+        "hobbies": [
+            "Программирвоание"
+        ]
+    },
+    {
+        "id": "9e172c20-254f-4396-8f5b-54c9ecfe1213",
+        "username": "Test",
+        "age": 34,
+        "hobbies": [
+            "Test-Хоккей"
+        ]
+    },
+    {
+        "id": "656059d5-bc98-4747-b296-496a74455914",
+        "username": "Test",
+        "age": 34,
+        "hobbies": [
+            "Test-Хоккей"
+        ]
+    },
+    {
+        "id": "2a982605-f8ac-4f13-8710-43fdd8eeda81",
+        "username": "Test",
+        "age": 34,
+        "hobbies": [
+            "Test-Хоккей"
+        ]
+    },
+    {
+        "id": "50618432-81d8-4923-ab74-6572e2be11c2",
+        "username": "Test",
+        "age": 34,
+        "hobbies": [
+            "Test-Хоккей"
+        ]
+    },
+    {
+        "id": "e461b88d-9698-4e5f-a26c-5b594c5d9b1d",
+        "username": "Paip",
+        "age": 101,
+        "hobbies": [
+            "Kyker"
+        ]
+    },
+    {
+        "id": "97770265-a261-4b90-a014-dadbbcae958d",
+        "username": "Paip",
+        "age": 101,
+        "hobbies": [
+            "Kyker"
+        ]
+    },
+    {
+        "id": "bf3b18a0-7029-46b9-be8d-70eec5cc79e0",
+        "name": "Paip",
+        "age": 101,
+        "hobbies": [
+            "Kyker"
+        ]
+    },
+    {
+        "id": "8b65a554-f070-4ca3-b7c1-ad8b01f0012f",
+        "name": "Paip",
+        "age": 101,
+        "hobbies": [
+            "Kyker"
+        ]
+    },
+    {
+        "id": "e7f7b81f-c0ad-4b84-a19a-45be9f6a4ee0",
+        "name": "Paip",
+        "age": 101,
+        "hobbies": [
+            "Kyker"
+        ]
+    },
+    {
+        "id": "d0c9bd45-e8f7-4d56-9f35-4d546eb16127",
+        "name": "Paip",
+        "age": 101
+    },
+    {
+        "id": "0bc0e3ef-27b9-4ce6-b14c-d13489f1f1ca",
+        "name": "Paip",
+        "age": 101
+    },
+    {
+        "id": "f0cb4c5c-4c69-4589-ac29-9f11ba2cd8e6",
+        "name": "ed9",
+        "age": 101,
+        "hobbies": [
+            "K"
+        ]
+    },
+    {
+        "id": "d89d0a5e-d0f3-46b2-8edb-11952f123bb6",
+        "name": "ed9",
+        "age": 101,
+        "hobbies": [
+            "K"
+        ]
+    }
+]
