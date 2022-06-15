@@ -1,6 +1,6 @@
 import { createServer } from 'http';
 import dotenv from 'dotenv';
-import { getUser, getUsers } from './controllers/user.controller.js';
+import { createUser, getUser, getUsers } from './controllers/user.controller.js';
 
 
 const server = createServer((req, res) => {
@@ -10,7 +10,11 @@ const server = createServer((req, res) => {
         getUsers(req, res);
     } else if (req.url === `/api/users/${id}` && req.method === 'GET') {
         getUser(req, res, id);
-    } else {
+    } else if (req.url === `/api/users` && req.method === 'POST') {
+        createUser(req, res)
+    }
+
+    else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Root not found' }));
     }
