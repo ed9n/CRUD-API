@@ -1,4 +1,4 @@
-import { findAllUsers, findUserById } from '../models/user.model.js';
+import { create, findAllUsers, findUserById } from '../models/user.model.js';
 
 export const getUsers = async (req, res) => {
     try {
@@ -27,6 +27,34 @@ export const getUser = async (req, res, id) => {
             res.end(JSON.stringify(user));
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
+
+export const createUser = async (req, res) => {
+    try {
+        let body;
+
+        req.on('data', (chunk) => {
+            body = chunk.toString();
+        });
+
+        req.on('end', async () => {
+
+            const { name, age, hobbies } = JSON.parse(body);
+            const user = {
+                name,
+                age,
+                hobbies
+            };
+
+            const newUser = await create(user);
+
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(newUser));
+        });
+
+    } catch (error) {
+        console.log(error);
+    };
+};
