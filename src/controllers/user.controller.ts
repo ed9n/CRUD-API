@@ -1,20 +1,26 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { User } from '../interfaces/interfaces';
-import { change, create, findAllUsers, findUserById } from '../models/user.model';
+import { change, create, findAllUsers, findUserById, remove } from '../models/user.model';
+import { checkForType } from '../utils';
 
 export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
     try {
+
         const users = await findAllUsers();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(users));
+
     } catch (error) {
-        console.log(error);
+
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Something went to wrong with users' }));
     }
 };
 
 export const getUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
     try {
         const user = await findUserById(id);
+
         if (!user) {
             if (req.url === '/api/users/' && req.method === 'GET') {
                 res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -26,9 +32,11 @@ export const getUser = async (req: IncomingMessage, res: ServerResponse, id: str
         } else {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(user));
+
         }
     } catch (error) {
-        console.log(error);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Something went to wrong with user' }));
     }
 }
 
@@ -51,38 +59,47 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
                     hobbies
                 };
 
-                const newUser: User = JSON.parse(body);
+                const parsedUser: User = JSON.parse(body);
 
                 const keysUser = Object.keys(user);
                 const strKeysUser = keysUser.toString();
 
-                const keysNewUser = Object.keys(newUser);
+                const keysNewUser = Object.keys(parsedUser);
                 const strKeysNewUser = keysNewUser.toString();
 
-                if (strKeysUser === strKeysNewUser) {
+                const chekType = checkForType(parsedUser)
 
-                    const newUser = await create(user);
-
-                    res.writeHead(201, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify(newUser));
-                } else {
+                if (strKeysUser !== strKeysNewUser) {
 
                     res.writeHead(400, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ message: 'body does not contain required fields' }));
-                }
-            } catch (error) {
+                    return;
 
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'body does not contain required fields' }));
+                } else if (chekType) {
+
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Invalid data in request' }));
+                    return;
+                }
+
+                const newUser: User = await create(user);
+
+                res.writeHead(201, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(newUser));
+
+            } catch (error) {
+                console.log(error)
             };
         });
     } catch (error) {
-        console.log(error);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Something went to wrong with create User' }));
     };
 };
 
 export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
     try {
+
         const oldUser = await findUserById(id);
         let body: string;
 
@@ -100,13 +117,17 @@ export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: 
             })
             req.on("end", async () => {
                 try {
-                    const { name, age, hobbies } = JSON.parse(body);
 
-                    const userFromBody: User = {
-                        name,
-                        age,
-                        hobbies
-                    };
+                    const userFromBody: User = JSON.parse(body);
+                    const checkType = checkForType(userFromBody);
+
+                    if (checkType) {
+
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ message: 'Invalid data in request' }));
+                        return;
+
+                    }
 
                     const changedUser = await change(oldUser, userFromBody);
 
@@ -114,11 +135,43 @@ export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: 
                     res.end(JSON.stringify(changedUser));
 
                 } catch (error) {
-                    console.log(error);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'пиззда' }));
                 };
             });
         };
     } catch (error) {
-        console.log(error);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Something went to wrong with change User' }));
+    };
+};
+
+
+export const removeUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
+    try {
+
+        const user: User = await findUserById(id);
+
+        if (!user) {
+
+            if (req.url === '/api/users/' && req.method === 'DELETE') {
+
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'User not found' }));
+            } else {
+
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Invalid data in request' }));
+            }
+
+        } else {
+            await remove(user);
+            res.statusCode = 204;
+            res.end();
+        };
+
+    } catch (error) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Something went to wrong with remove User' }));
     };
 };
