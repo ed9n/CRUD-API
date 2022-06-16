@@ -1,9 +1,9 @@
-import { createServer } from 'http';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
 import dotenv from 'dotenv';
-import { createUser, getUser, getUsers } from './controllers/user.controller.js';
+import { createUser, getUser, getUsers } from './controllers/user.controller';
 
 
-const server = createServer((req, res) => {
+const server = createServer((req: IncomingMessage, res: ServerResponse) => {
     const id = req.url.split('/')[3];
 
     if (req.url === `/api/users` && req.method === 'GET') {

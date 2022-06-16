@@ -1,10 +1,9 @@
-import { createRequire } from "module";
 import { v4 } from 'uuid';
-import { writeToData } from '../utils/index.js';
+import { writeToData } from '../utils/index';
+import users from '../../data/users.json';
+import { User } from '../interfaces/interfaces';
 
 
-const require = createRequire(import.meta.url);
-const users = require('../../data/users.json');
 
 export const findAllUsers = () => {
     return new Promise((res, rej) => {
@@ -12,14 +11,14 @@ export const findAllUsers = () => {
     });
 };
 
-export const findUserById = (id) => {
+export const findUserById = (id: string) => {
     return new Promise((res, rej) => {
         const user = users.find((el) => el.id === id);
         res(user);
     });
 };
 
-export const create = (user) => {
+export const create = (user: User) => {
     return new Promise((res, rej) => {
         const newUser = { id: v4(), ...user };
         users.push(newUser);
