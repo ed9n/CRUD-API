@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/server.ts",
   "scripts": {
-    "start": "tsc",
+    "start:prod": "tsc && node --experimental-json-modules dist/src/server.js",
     "start:dev": "nodemon src/server.ts"
   },
   "repository": {
