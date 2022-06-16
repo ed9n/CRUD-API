@@ -1,6 +1,6 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import dotenv from 'dotenv';
-import { changeUser, createUser, getUser, getUsers } from './controllers/user.controller';
+import { changeUser, createUser, getUser, getUsers, removeUser } from './controllers/user.controller';
 
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
@@ -14,9 +14,9 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
         createUser(req, res)
     } else if (req.url === `/api/users/${id}` && req.method === 'PUT') {
         changeUser(req, res, id)
-    }
-
-    else {
+    } else if (req.url === `/api/users/${id}` && req.method === 'DELETE') {
+        removeUser(req, res, id)
+    } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Root not found' }));
     }
@@ -24,5 +24,6 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
 
 dotenv.config();
 const PORT = process.env.PORT;
+
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
