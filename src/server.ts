@@ -1,6 +1,6 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import dotenv from 'dotenv';
-import { createUser, getUser, getUsers } from './controllers/user.controller';
+import { changeUser, createUser, getUser, getUsers } from './controllers/user.controller';
 
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
@@ -12,6 +12,8 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
         getUser(req, res, id);
     } else if (req.url === `/api/users` && req.method === 'POST') {
         createUser(req, res)
+    } else if (req.url === `/api/users/${id}` && req.method === 'PUT') {
+        changeUser(req, res, id)
     }
 
     else {
