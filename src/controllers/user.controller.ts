@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { User } from '../interfaces/interfaces';
-import { create, findAllUsers, findUserById } from '../models/user.model';
+import { change, create, findAllUsers, findUserById } from '../models/user.model';
 
 export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
     try {
@@ -23,8 +23,7 @@ export const getUser = async (req: IncomingMessage, res: ServerResponse, id: str
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'Invalid data in request' }));
             }
-        }
-        else {
+        } else {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(user));
         }
@@ -36,7 +35,7 @@ export const getUser = async (req: IncomingMessage, res: ServerResponse, id: str
 
 export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
     try {
-        let body = '';
+        let body: string;
 
         req.on('data', (chunk) => {
             body = chunk.toString();
@@ -75,10 +74,50 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 
                 res.writeHead(400, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ message: 'body does not contain required fields' }));
-
-            }
+            };
         });
+    } catch (error) {
+        console.log(error);
+    };
+};
 
+export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
+    try {
+        const oldUser = await findUserById(id);
+        let body: string;
+
+        if (!oldUser) {
+            if (req.url === '/api/users/' && req.method === 'PUT') {
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'User not found' }));
+            } else {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Invalid data in request' }));
+            }
+        } else {
+            req.on("data", (chunk) => {
+                body = chunk.toString()
+            })
+            req.on("end", async () => {
+                try {
+                    const { name, age, hobbies } = JSON.parse(body);
+
+                    const userFromBody: User = {
+                        name,
+                        age,
+                        hobbies
+                    };
+
+                    const changedUser = await change(oldUser, userFromBody);
+
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify(changedUser));
+
+                } catch (error) {
+                    console.log(error);
+                };
+            });
+        };
     } catch (error) {
         console.log(error);
     };
