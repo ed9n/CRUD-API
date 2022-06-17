@@ -1,7 +1,8 @@
 import { v4 } from 'uuid';
 import { writeToData } from '../utils/index';
-import users from '../../data/users.json';
+
 import { User } from '../interfaces/interfaces';
+import { users } from '../../data/users';
 
 export const findAllUsers = () => {
     return new Promise<Array<User>>((res, rej) => {
@@ -12,15 +13,16 @@ export const findAllUsers = () => {
 export const findUserById = (id: string) => {
     return new Promise<User>((res, rej) => {
         const user: User = users.find((el) => el.id === id);
+
         res(user);
     });
 };
 
-export const create = (user: User): Promise<User> => {
+export const create = (user: User) => {
     return new Promise<User>((res, rej) => {
         const newUser = { id: v4(), ...user };
         users.push(newUser);
-        writeToData('./data/users.json', users);
+
         res(newUser);
     });
 };
@@ -34,18 +36,17 @@ export const change = (oldUser: User, newUser: User) => {
         user.age = changedUser.age;
         user.hobbies = changedUser.hobbies;
 
-        writeToData('./data/users.json', users)
-
         res(user);
     });
 };
 
 export const remove = (user: User) => {
     return new Promise<Array<User>>((res, rej) => {
-        const newArray = users.filter((item) => item.id !== user.id)
-        console.log(newArray)
-        writeToData('./data/users.json', newArray);
-        res(newArray)
+        const index = users.indexOf(user)
+        if (index !== -1) {
+            users.splice(index, 1);
+        }
+        res(users)
     });
 };
 
