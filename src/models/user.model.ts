@@ -1,6 +1,4 @@
 import { v4 } from 'uuid';
-import { writeToData } from '../utils/index';
-
 import { User } from '../interfaces/interfaces';
 import { users } from '../../data/users';
 
