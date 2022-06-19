@@ -2,6 +2,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { User } from '../interfaces/interfaces';
 import { change, create, findAllUsers, findUserById, remove } from '../models/user.model';
 import { checkForType } from '../utils';
+import { validate } from 'uuid';
 
 export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
     try {
@@ -18,30 +19,37 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse) => {
 };
 
 export const getUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
+
     try {
         const user = await findUserById(id);
 
-        if (!user) {
-            if (req.url === '/api/users/' && req.method === 'GET') {
-                res.writeHead(404, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'User not found' }));
-            } else {
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'Invalid data in request' }));
-            }
+        if (validate(id) === false) {
+
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Invalid data in request' }));
+
+        } else if (validate(id) === true && !user) {
+
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'User not found' }));
+
         } else {
+
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(user));
 
         }
     } catch (error) {
+
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Something went to wrong with user' }));
+
     }
 }
 
 
 export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
+
     try {
         let body: string;
 
@@ -88,7 +96,8 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
                 res.end(JSON.stringify(newUser));
 
             } catch (error) {
-                console.log(error)
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Invalid data in request' }));
             };
         });
     } catch (error) {
@@ -98,19 +107,22 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 };
 
 export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: string) => {
+
     try {
 
         const oldUser = await findUserById(id);
         let body: string;
 
-        if (!oldUser) {
-            if (req.url === '/api/users/' && req.method === 'PUT') {
-                res.writeHead(404, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'User not found' }));
-            } else {
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'Invalid data in request' }));
-            }
+        if (validate(id) === false) {
+
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Invalid data in request' }));
+
+        } else if (validate(id) === true && !oldUser) {
+
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'User not found' }));
+
         } else {
             req.on("data", (chunk) => {
                 body = chunk.toString()
@@ -135,8 +147,10 @@ export const changeUser = async (req: IncomingMessage, res: ServerResponse, id: 
                     res.end(JSON.stringify(changedUser));
 
                 } catch (error) {
-                    res.writeHead(500, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ message: 'пиззда' }));
+
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ message: 'Invalid data in request' }));
+
                 };
             });
         };
@@ -152,26 +166,28 @@ export const removeUser = async (req: IncomingMessage, res: ServerResponse, id: 
 
         const user: User = await findUserById(id);
 
-        if (!user) {
+        if (validate(id) === false) {
 
-            if (req.url === '/api/users/' && req.method === 'DELETE') {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Invalid data in request' }));
 
-                res.writeHead(404, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'User not found' }));
-            } else {
+        } else if (validate(id) === true && !user) {
 
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ message: 'Invalid data in request' }));
-            }
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'User not found' }));
 
         } else {
+
             await remove(user);
             res.statusCode = 204;
             res.end();
+
         };
 
     } catch (error) {
+
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Something went to wrong with remove User' }));
+
     };
 };
