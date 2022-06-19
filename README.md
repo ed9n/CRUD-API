@@ -6,6 +6,7 @@
 * Clone or download this repo https://github.com/ed9n/CRUD-API
 * Open your newly created folder with your code editor
 * Checkout Crud-Api branch
+* Using "npm i"
 
 # How to use CRUD-API
 
