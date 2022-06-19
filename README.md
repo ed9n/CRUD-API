@@ -2,10 +2,10 @@
 
 # INSTRUCTIONS:
 
-Make sure that you have v16 LTS Node installed on your computer
-Clone or download this repo https://github.com/ed9n/CRUD-API
-Open your newly created folder with your code editor
-Checkout Crud-Api branch
+* Make sure that you have v16 LTS Node installed on your computer
+* Clone or download this repo https://github.com/ed9n/CRUD-API
+* Open your newly created folder with your code editor
+* Checkout Crud-Api branch
 
 # How to use CRUD-API
 
