@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start:prod": "cross-env NODE_ENV=production tsc && node dist/src/server.js",
-    "start:dev": "cross-env NODE_ENV=development nodemon src/server.ts"
+    "start:dev": "cross-env NODE_ENV=development nodemon src/server.ts",
+    "start:multi": "cross-env NODE_ENV=development nodemon src/cluster.ts"
   },
   "repository": {
     "type": "git",

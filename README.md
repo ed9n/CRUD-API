@@ -15,6 +15,7 @@
 * The application is run in production mode: "npm run start:prod"
 * The application is run in development mode: "npm run start:dev"
 * If you need testing CRUD-API: "npm run test"
+* Starts multiple instances of your application: "npm run start:multi"
 
 # Implementation details
 
