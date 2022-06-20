@@ -28,7 +28,7 @@
 
 2. Users are stored as objects that have following properties:
  * id — unique identifier, generated on server side
- * username — user's name 
+ * name — user's name 
  * age — user's age 
  * hobbies — user's hobbies 
 
