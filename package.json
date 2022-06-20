@@ -1,0 +1,39 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.ts",
+  "scripts": {
+    "test": "jest",
+    "start:prod": "cross-env NODE_ENV=production tsc && node dist/src/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon src/server.ts",
+    "start:multi": "cross-env NODE_ENV=development nodemon src/cluster.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ed9n/CRUD-API.git"
+  },
+  "author": "Eduard Rzhautski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ed9n/CRUD-API/issues"
+  },
+  "homepage": "https://github.com/ed9n/CRUD-API#readme",
+  "devDependencies": {
+    "@types/jest": "^28.1.2",
+    "@types/node": "^18.0.0",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^8.3.4",
+    "cross-env": "^7.0.3",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2"
+  }
+}
